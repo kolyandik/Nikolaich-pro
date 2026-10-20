@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Николаич | Нестандартные решения для роста бизнеса</title>
+    <meta name="description" content="Ломаю шаблоны, выстраиваю системы, возвращаю человечность в бизнес-процессы. Воронки продаж, геосервисы, HR, стратегия.">
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Настройка Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#05070a', // Глубокий космический черный
+                            800: '#0d1117',
+                        },
+                        neon: {
+                            green: '#39FF14',
+                            blue: '#00F0FF',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05070a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism эффекты */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(57, 255, 20, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Текстовые свечения */
+        .glow-text-green { text-shadow: 0 0 15px rgba(57, 255, 20, 0.6); }
+        .glow-text-blue { text-shadow: 0 0 15px rgba(0, 240, 255, 0.6); }
+
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #05070a; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #39FF14; }
+
+        /* Анимации при скролле (Intersection Observer) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Декоративные блобы */
+        .blob {
+            position: absolute;
+            filter: blur(90px);
+            z-index: -1;
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-neon-blue selection:text-dark-900">
+
+    <!-- Декоративные фоновые элементы -->
+    <div class="blob bg-neon-green w-96 h-96 top-0 left-[-10%]"></div>
+    <div class="blob bg-neon-blue w-96 h-96 top-[20%] right-[-10%]"></div>
+    <div class="blob bg-neon-green w-80 h-80 bottom-[10%] left-[20%] opacity-20"></div>
+
+    <!-- 1. Главный экран (Hero) -->
+    <section class="relative min-h-screen flex items-center pt-20 pb-12 px-4 sm:px-6 lg:px-8 z-10">
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            
+            <!-- Левая часть: Текст -->
+            <div class="order-2 lg:order-1 reveal-left">
+                <div class="inline-block px-4 py-2 rounded-full border border-neon-blue/30 text-neon-blue text-sm font-semibold tracking-widest mb-6 glass uppercase">
+                    Инновации • Стратегия • Люди
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight">
+                    Нестандартные <br> решения для <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-emerald-400 glow-text-green">роста</span> вашего бизнеса.
+                </h1>
+                <p class="text-xl text-gray-300 font-light mb-10 max-w-xl leading-relaxed border-l-2 border-neon-blue pl-6">
+                    Я — Николаич. Ломаю шаблоны, выстраиваю эффективные системы и возвращаю <span class="font-semibold text-white">«человечность»</span> в бизнес-процессы.
+                </p>
+                
+                <a href="#contacts" class="relative inline-flex items-center justify-center px-8 py-4 font-bold text-dark-900 bg-white rounded-full overflow-hidden group transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(57,255,20,0.6)]">
+                    <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                    <span class="absolute inset-0 w-full h-full transition-all duration-500 ease-out transform translate-x-full bg-neon-green group-hover:translate-x-0"></span>
+                    <span class="relative flex items-center group-hover:text-dark-900 transition-colors">
+                        Начать трансформацию <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Правая часть: Фото с неоном -->
+            <div class="order-1 lg:order-2 relative reveal-right flex justify-center lg:justify-end">
+                <div class="relative w-full max-w-md aspect-[4/5] lg:aspect-auto lg:h-[600px] group">
+                    <!-- Заднее свечение -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-neon-green to-neon-blue blur-[60px] opacity-40 group-hover:opacity-60 transition-opacity duration-700 rounded-[3rem]"></div>
+                    <!-- Фото -->
+                    <img src="09_uverennaya_pоза.jpg" alt="Николаич" class="relative z-10 w-full h-full object-cover rounded-[2rem] lg:rounded-[3rem] shadow-2xl border border-white/10 transform -rotate-2 group-hover:rotate-0 transition-all duration-500">
+                    <!-- Плашка поверх -->
+                    <div class="absolute -bottom-6 -left-6 z-20 glass p-4 rounded-2xl flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
+                        <div class="w-12 h-12 rounded-full bg-neon-green flex items-center justify-center text-dark-900 text-xl shadow-[0_0_15px_#39FF14]">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-wider">Опыт</p>
+                            <p class="font-bold text-white">Реальные кейсы</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Философия и Подход (Латеральный дизайн) -->
+    <section class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16 items-center">
+                
+                <!-- Асимметричное фото слева -->
+                <div class="md:col-span-5 reveal-left">
+                    <div class="relative">
+                        <img src="06_s_kofe.png" alt="Николаич с кофе" class="w-full object-cover rounded-[3rem] rounded-tr-none shadow-2xl border-r-4 border-b-4 border-neon-blue/50">
+                        <div class="absolute -top-4 -right-4 w-24 h-24 bg-neon-blue rounded-full blur-2xl opacity-50"></div>
+                    </div>
+                </div>
+
+                <!-- Текст справа (glassmorphism) -->
+                <div class="md:col-span-7 glass p-8 lg:p-12 rounded-[2rem] relative reveal-right mt-[-40px] md:mt-0 md:-ml-12 z-20">
+                    <i class="fas fa-quote-left text-6xl absolute -top-6 left-8 text-neon-green/20"></i>
+                    <h2 class="text-3xl lg:text-4xl font-bold mb-6">Люди покупают у <span class="text-neon-green">людей</span></h2>
+                    <div class="space-y-4 text-gray-300 text-lg leading-relaxed font-light">
+                        <p>В мире победивших алгоритмов и бездушных автоворонок побеждает тот, кто не боится быть настоящим. Мой подход — это латеральное мышление.</p>
+                        <p>Мы не просто настраиваем рекламу или пишем регламенты. Мы ищем нестандартные связки, смотрим на бизнес под углом, недоступным конкурентам, и выстраиваем архитектуру роста, где каждый винтик работает на общий результат.</p>
+                        <p class="font-medium text-white border-l-2 border-neon-green pl-4">Креатив спасает там, где бюджеты бессильны.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Экспертиза (Креативные карточки) -->
+    <section class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Как я <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-cyan-400">помогаю</span> бизнесу</h2>
+                <p class="text-gray-400 text-xl">4 столпа уверенного масштабирования</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                
+                <!-- Карточка 1: Маркетинг (Изображение справа) -->
+                <div class="glass glass-card rounded-[2rem] p-2 flex flex-col sm:flex-row items-stretch gap-6 reveal transition-all duration-300">
+                    <div class="p-6 sm:w-1/2 flex flex-col justify-center">
+                        <div class="w-12 h-12 rounded-xl bg-neon-green/20 flex items-center justify-center text-neon-green text-2xl mb-6">
+                            <i class="fas fa-funnel-dollar"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Маркетинг и Трафик</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Настраиваю высококонверсионные воронки продаж в интернете. Реализую нестандартное, латеральное продвижение, которое бьет точно в цель и экономит бюджет.</p>
+                    </div>
+                    <div class="sm:w-1/2 h-64 sm:h-auto overflow-hidden rounded-[1.5rem]">
+                        <img src="08_rabota_s_zapisyami.png" alt="Маркетинг" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+
+                <!-- Карточка 2: Локальный бизнес (Текстовая акцентная) -->
+                <div class="glass glass-card rounded-[2rem] p-8 lg:p-10 flex flex-col justify-center relative overflow-hidden reveal border-t-4 border-t-neon-blue">
+                    <div class="absolute right-0 top-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                        <i class="fas fa-map-marker-alt text-[15rem] text-neon-blue"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 rounded-xl bg-neon-blue/20 flex items-center justify-center text-neon-blue text-2xl mb-6">
+                            <i class="fas fa-location-crosshairs"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Локальный бизнес</h3>
+                        <p class="text-gray-300 leading-relaxed text-lg">Веду бизнесы в геосервисах (Яндекс Карты, 2ГИС, Google Maps). <br><span class="text-neon-blue font-semibold">Выжимаем максимум из вашей локации</span>, делая вас выбором #1 на районе.</p>
+                    </div>
+                </div>
+
+                <!-- Карточка 3: Менеджмент и HR (Изображение слева) -->
+                <div class="glass glass-card rounded-[2rem] p-2 flex flex-col sm:flex-row-reverse items-stretch gap-6 reveal transition-all duration-300 lg:col-span-2 xl:col-span-1">
+                    <div class="p-6 sm:w-1/2 flex flex-col justify-center">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-6">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Менеджмент и HR</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Консультирую по сложным вопросам управления. Разрабатываем и внедряем кадровую и общеуправленческую документацию, чтобы бизнес работал как часы.</p>
+                    </div>
+                    <div class="sm:w-1/2 h-64 sm:h-auto overflow-hidden rounded-[1.5rem]">
+                        <img src="05_u_doski_strategiya.png" alt="HR и Менеджмент" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+
+                <!-- Карточка 4: Стратегия (Большая, перекрывающая) -->
+                <div class="relative rounded-[2rem] overflow-hidden reveal lg:col-span-2 xl:col-span-1 group">
+                    <img src="10_biznes_portret_za_stolom.png" alt="Стратегия" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 lg:p-10">
+                        <div class="inline-flex items-center gap-3 mb-4">
+                            <div class="w-2 h-2 rounded-full bg-neon-green animate-ping"></div>
+                            <span class="text-neon-green font-bold tracking-widest uppercase text-sm">Инновации</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3 text-white">Стратегия развития</h3>
+                        <p class="text-gray-300">Разрабатываем комплексные стратегии предприятия. Анализируем рынок, создаем и внедряем совершенно новые продукты и услуги, обходя конкурентов.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Процесс взаимодействия -->
+    <section class="py-24 relative z-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <!-- Липкое фото -->
+                <div class="w-full lg:w-1/3 reveal-left">
+                    <div class="sticky top-24 relative">
+                        <div class="absolute -inset-4 bg-neon-blue/20 blur-xl rounded-[2rem]"></div>
+                        <img src="07_portret_u_okna.png" alt="Процесс работы" class="relative w-full rounded-[2rem] border border-white/10 shadow-2xl">
+                    </div>
+                </div>
+
+                <!-- Шаги процесса -->
+                <div class="w-full lg:w-2/3 space-y-8">
+                    <div class="mb-12 reveal">
+                        <h2 class="text-4xl font-black mb-4">Как мы <span class="text-neon-blue glow-text-blue">работаем</span></h2>
+                        <p class="text-gray-400">От первого контакта до масштабирования системы.</p>
+                    </div>
+
+                    <!-- Шаг 1 -->
+                    <div class="glass p-8 rounded-[2rem] relative reveal border-l-2 border-l-neon-green">
+                        <div class="absolute -left-[17px] top-8 w-8 h-8 rounded-full bg-dark-900 border-4 border-neon-green flex items-center justify-center text-xs font-bold">1</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Глубокий Аудит</h3>
+                        <p class="text-gray-400">Погружаюсь в процессы. Ищем "узкие горлышки", утечки бюджета и неиспользованный потенциал вашей базы и продукта.</p>
+                    </div>
+
+                    <!-- Шаг 2 -->
+                    <div class="glass p-8 rounded-[2rem] relative reveal border-l-2 border-l-neon-blue">
+                        <div class="absolute -left-[17px] top-8 w-8 h-8 rounded-full bg-dark-900 border-4 border-neon-blue flex items-center justify-center text-xs font-bold">2</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Латеральная Стратегия</h3>
+                        <p class="text-gray-400">Никаких шаблонов. Разрабатываем уникальный путь развития, будь то новая воронка, корректировка HR-политики или выход в геосервисы.</p>
+                    </div>
+
+                    <!-- Шаг 3 -->
+                    <div class="glass p-8 rounded-[2rem] relative reveal border-l-2 border-l-emerald-400">
+                        <div class="absolute -left-[17px] top-8 w-8 h-8 rounded-full bg-dark-900 border-4 border-emerald-400 flex items-center justify-center text-xs font-bold">3</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Внедрение и Рост</h3>
+                        <p class="text-gray-400">Берем разработанный план и превращаем его в реальные цифры прибыли. Сопровождаю бизнес на этапе интеграции новых инструментов.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Подвал / CTA (Призыв к действию) -->
+    <footer id="contacts" class="relative pt-32 pb-20 overflow-hidden z-10 border-t border-white/10 bg-dark-800/50">
+        <!-- Блик снизу -->
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-32 bg-neon-green blur-[120px] opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto px-4 text-center reveal">
+            <!-- Круглое портретное фото -->
+            <div class="relative w-40 h-40 mx-auto mb-8">
+                <div class="absolute inset-0 bg-gradient-to-r from-neon-green to-neon-blue rounded-full animate-spin-slow" style="animation: spin 10s linear infinite;"></div>
+                <img src="01_portret_krupnyy.jpg" alt="Связь с Николаичем" class="absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] object-cover rounded-full border-4 border-dark-900">
+            </div>
+
+            <h2 class="text-4xl md:text-6xl font-black mb-6 text-white tracking-tight">Готовы к <span class="text-neon-green glow-text-green">кратному росту?</span></h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light">Давайте обсудим ваш проект. Подписывайтесь на мои ресурсы, где я делюсь нестандартными решениями для бизнеса.</p>
+
+            <!-- Социальные кнопки (Креативная сетка) -->
+            <div class="flex flex-wrap justify-center gap-4 mb-16">
+                <!-- Telegram -->
+                <a href="https://t.me/Nikola_marketing" target="_blank" class="glass px-6 py-4 rounded-2xl flex items-center gap-3 hover:bg-[#229ED9]/20 hover:border-[#229ED9] transition-all group">
+                    <i class="fab fa-telegram-plane text-2xl text-[#229ED9] group-hover:scale-110 transition-transform"></i>
+                    <span class="font-bold text-white">Telegram</span>
+                </a>
+                
+                <!-- ВКонтакте -->
+                <a href="https://vk.ru/nikolaich_marketing" target="_blank" class="glass px-6 py-4 rounded-2xl flex items-center gap-3 hover:bg-[#0077FF]/20 hover:border-[#0077FF] transition-all group">
+                    <i class="fab fa-vk text-2xl text-[#0077FF] group-hover:scale-110 transition-transform"></i>
+                    <span class="font-bold text-white">ВКонтакте</span>
+                </a>
+
+                <!-- Dzen (Используем кастомный дизайн иконки/звезды) -->
+                <a href="https://dzen.ru/id/5deb498043fdc000ae5346c1" target="_blank" class="glass px-6 py-4 rounded-2xl flex items-center gap-3 hover:bg-white/20 hover:border-white transition-all group">
+                    <i class="fas fa-asterisk text-2xl text-white group-hover:rotate-180 transition-transform duration-500"></i>
+                    <span class="font-bold text-white">Я.Дзен</span>
+                </a>
+
+                <!-- Pinterest -->
+                <a href="https://ru.pinterest.com/kolyandik/" target="_blank" class="glass px-6 py-4 rounded-2xl flex items-center gap-3 hover:bg-[#E60023]/20 hover:border-[#E60023] transition-all group">
+                    <i class="fab fa-pinterest text-2xl text-[#E60023] group-hover:scale-110 transition-transform"></i>
+                    <span class="font-bold text-white">Pinterest</span>
+                </a>
+
+                <!-- VC.ru (Текстовая стилизация) -->
+                <a href="https://vc.ru/id4556033" target="_blank" class="glass px-6 py-4 rounded-2xl flex items-center gap-3 hover:bg-[#E5AA8A]/20 hover:border-[#E5AA8A] transition-all group">
+                    <span class="text-2xl font-black text-[#E5AA8A] tracking-tighter group-hover:scale-110 transition-transform">vc</span>
+                    <span class="font-bold text-white">Статьи</span>
+                </a>
+            </div>
+
+            <div class="text-gray-500 text-sm font-light">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Николаич. Все права на креатив защищены.</p>
+                <p class="mt-2">Маркетинг • Геосервисы • HR • Стратегия</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипт для анимации появления (Intersection Observer) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Анимация проигрывается один раз
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
